@@ -1,25 +1,33 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import {HashRouter, NavLink, Route} from 'react-router-dom';
+
+import './components/home';
+import Home from './components/home';
+import Contact from './components/contact';
+import Blog from './components/blog';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+   <div>
+      <HashRouter>
+         {/* <img src={logo} className="App-logo" alt="logo" /> */}
+         <h1>Welcome to Cindy's Website :)</h1>
+         <ul className="header">
+         {/* NavLink makes the /#name appended to the link, like a table of contents */}
+            <li><NavLink exact to="/">Home</NavLink></li>
+            <li><NavLink to="/blog">Blog</NavLink></li>
+            <li><a href='#'>Calculator</a></li>
+            <li><NavLink to="/contact">Contact</NavLink></li>
+         </ul>
+
+         {/* below the nav bar should be the place you put content */}
+         <div className="content">
+            <Route exact path="/" component={Home}/>
+            <Route path="/blog" component={Blog}/>
+            <Route path="/contact" component={Contact}/>
+         </div>
+      </HashRouter>
+   </div>
   );
 }
 
