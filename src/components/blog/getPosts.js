@@ -31,7 +31,7 @@ function DisplayTitleContentTags(post)
     }
     else
     {
-        contentDisplay = <textArea>{post.content}</textArea>;
+        contentDisplay = <textarea value={post.content}/>;
     }
 
     
@@ -63,6 +63,11 @@ class GetPosts extends React.Component
         this.editPost = this.editPost.bind(this);
     }
 
+    componentDidUpdate()
+    {
+        if(! this.state.data && this.props.data)
+            this.setState({data: this.props.data});
+    }
 
     render()
     {
@@ -70,10 +75,10 @@ class GetPosts extends React.Component
         //This if is important because render will happen every time something gets
         //changed. The async request on blog.js parent happens after this render
         //so the first time, props.data will have nothing
-        //Later though, props.data changes, and render will be called again
-        if(this.props.data)
+        //Later though, props.data changes, and componentDidUpdate() then render() will be called again
+        if(this.state.data)
         {
-            postDisplay = this.props.data.map((post, index) =>
+            postDisplay = this.state.data.map((post, index) =>
             {
                 return (
                     <tr key={post.id} id={post.id}>
@@ -94,35 +99,6 @@ class GetPosts extends React.Component
                 {postDisplay}
             </table>
         );
-    }
-
-    componentDidUpdate()
-    {
-        if(! this.state.data)
-            this.setState({data: this.props.data});
-        else
-        {
-            let postDisplay = this.state.data.map((post, index) =>
-            {
-                return (
-                    <tr key={post.id} id={post.id}>
-                        <DisplayTitleContentTags title={post.title} content={post.content} tags={post.tags} isEditMode={post.isEditMode}/>
-                        <td>
-                            <button width='20%' onClick={ this.editPost } id={index}>Edit</button>
-                        </td>
-                        <td>
-                            <button width='20%' onClick={ this.deletePost }>X</button>
-                        </td>
-                    </tr>
-                );
-            });
-
-            return(
-                <table width='100%'>
-                    {postDisplay}
-                </table>
-            );
-        }
     }
 
     editPost(event)

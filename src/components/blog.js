@@ -63,6 +63,7 @@ class Blog extends React.Component{
         );
     }
 
+    // FIXME TODO move this to getPosts I think? or need to make the this.state.posts connected to GetPosts' this.state.posts?
     makePost()
     {
         if(this.state.blogContent && this.state.title)
