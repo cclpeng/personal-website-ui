@@ -31,7 +31,8 @@ function DisplayTitleContentTags(post)
     }
     else
     {
-        contentDisplay = <textarea value={post.content}/>;
+        // FIXME TODO add onChange
+        contentDisplay = <textarea value={post.content} style={{width:'95%', minHeight: '60px'}}/>;
     }
 
     
