@@ -5,6 +5,7 @@
   "dependencies": {
     "axios": "^0.19.0",
     "bootstrap": "^4.3.1",
+    "dotenv": "^9.0.0",
     "jquery": "^3.4.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
@@ -15,7 +16,12 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "start:development": "Set REACT_APP_ENV=development&&npm start",
+    "build:development": "Set REACT_APP_ENV=development&&npm run build",
+    "start:production": "Set REACT_APP_ENV=production&&npm start",
+    "build:production": "Set REACT_APP_ENV=production&&npm run build",
+    "Note": "to start a script, the command is 'npm run script-name', eg. 'npm run start:development'"
   },
   "eslintConfig": {
     "extends": "react-app"

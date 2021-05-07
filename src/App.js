@@ -10,13 +10,13 @@ function App() {
   return (
    <div>
       <HashRouter>
-         {/* <img src={logo} className="App-logo" alt="logo" /> */}
-         <h1>Welcome to Cindy's Website :)</h1>
+         <h1>Cindy Peng</h1>
          <ul className="header">
          {/* NavLink makes the /#name appended to the link, like a table of contents */}
             <li><NavLink exact to="/">Home</NavLink></li>
-            <li><NavLink to="/blog">Blog</NavLink></li>
+            <li><NavLink to="/blog">Programming Blog</NavLink></li>
             <li><a href='#'>Calculator</a></li>
+            <li><a href='#'>Timers</a></li>
             <li><NavLink to="/contact">Contact</NavLink></li>
          </ul>
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import Axios from 'axios';
+import ServicesRequester from '../../services/http-requests/ServicesRequester.js';
 import '../../index.css'
 
 /**
@@ -56,9 +56,9 @@ class GetPosts extends React.Component
     constructor(props)
     {
         super(props);
-        this.state={
-            data: null,
-        };
+        // this.state={
+        //     data: null,
+        // };
 
         this.deletePost = this.deletePost.bind(this);
         this.editPost = this.editPost.bind(this);
@@ -66,8 +66,8 @@ class GetPosts extends React.Component
 
     componentDidUpdate()
     {
-        if(! this.state.data && this.props.data)
-            this.setState({data: this.props.data});
+        // this.props.data
+        // this.state.data
     }
 
     render()
@@ -77,9 +77,9 @@ class GetPosts extends React.Component
         //changed. The async request on blog.js parent happens after this render
         //so the first time, props.data will have nothing
         //Later though, props.data changes, and componentDidUpdate() then render() will be called again
-        if(this.state.data)
+        if(this.props.data)
         {
-            postDisplay = this.state.data.map((post, index) =>
+            postDisplay = this.props.data.map((post, index) =>
             {
                 return (
                     <tr key={post.id} id={post.id}>
@@ -106,10 +106,6 @@ class GetPosts extends React.Component
     {
         let index = event.target.id;
         // FIXME TODO change the properties, toggle btw edit and display
-        let dataArr = this.state.data.slice();
-        dataArr[index].isEditMode = this.state.data[index].isEditMode ? false : true;
-        // this.state.data[index].isEditMode = true;//(this.props.data[index].isEditMode) ? false : true;
-        this.setState({data: dataArr});
     }
 
     async deletePost(event) //remember that event is passed by default
@@ -124,7 +120,7 @@ class GetPosts extends React.Component
         {
             // event is on the button, which is within <tr><td></td></tr>
             let postId = event.target.parentNode.parentNode.id; 
-            await Axios.delete(`http://localhost:8080/post/delete-id/${postId}`);
+            await ServicesRequester.deletePost(postId);
             let tr = document.getElementById(postId);
             tr.parentNode.removeChild(tr); // remove tr from <table>
         }

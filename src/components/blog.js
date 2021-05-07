@@ -1,5 +1,5 @@
 import React from 'react';
-import Axios from 'axios';
+import ServicesRequester from '../services/http-requests/ServicesRequester.js'
 import GetPosts from './blog/getPosts';
 import '../index.css'
 
@@ -24,7 +24,7 @@ class Blog extends React.Component{
 
     async componentDidMount() //hook to get your model loaded
     {
-        let postHtmlArr =  await Axios.get('http://localhost:8080/post/get-all')
+        let postHtmlArr =  await ServicesRequester.getPosts();
         this.setState({posts:postHtmlArr.data});
     }
 
@@ -78,8 +78,7 @@ class Blog extends React.Component{
             //reset the text fields
             this.setState({blogContent:'', tags:'', title:''});
 
-            Axios.post('http://localhost:8080/post/save', JSON.stringify(data), 
-                        {headers:{'Content-type':'application/json'}}).then(post =>
+            ServicesRequester.postPost(data, {headers:{'Content-type':'application/json'}}).then(post =>
             {
                 if(post.data)
                 {
