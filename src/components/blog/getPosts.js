@@ -12,7 +12,7 @@ function DisplayTitleContentTags(post)
 
     // put array of tags into buttons for display
     tags = post.tags.map(tag =>{ 
-        return <button key={tag} className='tagDecoration'>{tag}</button>
+        return <button key={tag} className='btn btn-light tag-button'>{tag}</button>
     });
 
     // Sometimes there is a title, soometimes not. If there is a title, emphasize it
@@ -37,7 +37,7 @@ function DisplayTitleContentTags(post)
 
     
     return (
-        <td>
+        <td class='blog-post-column'>
             <div>
                 {titleDisplay}
                 {contentDisplay}
@@ -72,6 +72,7 @@ class GetPosts extends React.Component
 
     render()
     {
+        /* FIXME TODO carousel to display ten posts, with arrows to navigate through the other posts... */
         let postDisplay = null;
         //This if is important because render will happen every time something gets
         //changed. The async request on blog.js parent happens after this render
@@ -82,13 +83,11 @@ class GetPosts extends React.Component
             postDisplay = this.props.data.map((post, index) =>
             {
                 return (
-                    <tr key={post.id} id={post.id}>
+                    <tr key={post.id} id={post.id} class='bottom-border'>
                         <DisplayTitleContentTags title={post.title} content={post.content} tags={post.tags} isEditMode={post.isEditMode}/>
-                        <td>
-                            <button width='20%' onClick={ this.editPost } id={index}>Edit</button>
-                        </td>
-                        <td>
-                            <button width='20%' onClick={ this.deletePost }>X</button>
+                        <td class='blog-post-buttons-column'>
+                            <button  onClick={ this.editPost } id={index} class='btn btn-secondary'>Edit</button>
+                            <button  onClick={ this.deletePost } class='btn btn-secondary'>X</button>
                         </td>
                     </tr>
                 );
@@ -96,7 +95,7 @@ class GetPosts extends React.Component
         }
 
         return(
-            <table width='100%'>
+            <table class='table'>
                 {postDisplay}
             </table>
         );
@@ -105,6 +104,7 @@ class GetPosts extends React.Component
     editPost(event)
     {
         let index = event.target.id;
+        console.log(index);
         // FIXME TODO change the properties, toggle btw edit and display
     }
 
